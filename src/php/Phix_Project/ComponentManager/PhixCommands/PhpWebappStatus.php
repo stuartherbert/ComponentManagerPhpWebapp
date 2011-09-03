@@ -107,6 +107,11 @@ class PhpWebappStatus extends ComponentCommandBase implements CommandInterface
                         case WebappComponentFolder::STATE_EMPTY:
                                 $so->outputLine(null, 'folder is empty');
                                 break;
+                        
+                        case WebappComponentFolder::STATE_INCOMPATIBLE:
+                                $se->output($context->errorStyle, $context->errorPrefix);
+                                $se->outputLine(null, 'folder is not a php-webapp project');
+                                break;                        
 
                         default:
                                 $se->output($context->errorStyle, $context->errorPrefix);

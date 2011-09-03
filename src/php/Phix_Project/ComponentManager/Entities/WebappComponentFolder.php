@@ -48,6 +48,7 @@ namespace Phix_Project\ComponentManager\Entities;
 
 class WebappComponentFolder extends ComponentFolder
 {
+        const COMPONENT_TYPE = 'php-webapp';
         const LATEST_VERSION = 1;
         const DATA_FOLDER = '@@DATA_DIR@@/ComponentManagerPhpWebapp/php-webapp';
 
@@ -75,28 +76,6 @@ class WebappComponentFolder extends ComponentFolder
                 $this->createBootstrapFile();
 
                 // if we get here, job done
-        }
-
-        public function upgradeComponent()
-        {
-                // just make sure we're not being asked to do something
-                // that is impossible
-                if ($this->componentVersion >= self::LATEST_VERSION)
-                {
-                        throw new \Exception('Folder ' . $this->folder . ' is on version ' . $this->componentVersion . ' which is newer than known latest version ' . self::LATEST_VERSION);
-                }
-
-                // ok, let's do the upgrades
-                $thisVersion = $this->componentVersion;
-                while ($thisVersion < self::LATEST_VERSION)
-                {
-                        $method = 'upgradeFrom' . $thisVersion . 'To' . ($thisVersion + 1);
-                        \call_user_method($method, $this);
-                        $thisVersion++;
-                        $this->editBuildPropertiesVersionNumber($thisVersion);
-                }
-
-                // all done
         }
 
         protected function createFolders()
